@@ -159,7 +159,7 @@
   "@settingsAbout": {
     "description": "Settings section - app info"
   },
-  "downloadTitle": "Скачивание",
+  "downloadTitle": "Скачать",
   "@downloadTitle": {
     "description": "Download settings page title"
   },
@@ -4175,7 +4175,7 @@
       }
     }
   },
-  "trackOptionAddToLoved": "Добавить в Любимые",
+  "trackOptionAddToLoved": "Добавить в Любимое",
   "@trackOptionAddToLoved": {
     "description": "Bottom sheet action label - add track to loved folder"
   },
