@@ -344,9 +344,18 @@ jobs:
           VERSION=${{ needs.get-version.outputs.version }}
           REPO_OWNER="${{ github.repository_owner }}"
           REPO_NAME="${{ github.event.repository.name }}"
+          CURRENT_REF=$(git rev-list -n 1 "$VERSION" 2>/dev/null || git rev-parse HEAD)
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 "${CURRENT_REF}^" 2>/dev/null || true)
 
-          # Start with git-cliff changelog
-          cp /tmp/changelog.txt /tmp/release_body.txt
+          # Start with git-cliff changelog, but replace its compare footer with a
+          # deterministic previous-tag lookup from git.
+          sed '/^## [0-9][0-9.[:alpha:]-]*$/d; /^\*\*Full Changelog\*\*/d' /tmp/changelog.txt > /tmp/release_body.txt
+
+          if [ -n "$PREVIOUS_TAG" ]; then
+            printf '\n**Full Changelog**: [%s...%s](https://github.com/%s/%s/compare/%s...%s)\n' \
+              "$PREVIOUS_TAG" "$VERSION" "$REPO_OWNER" "$REPO_NAME" "$PREVIOUS_TAG" "$VERSION" \
+              >> /tmp/release_body.txt
+          fi
 
           # Append download section
           cat >> /tmp/release_body.txt << FOOTER
@@ -424,7 +433,10 @@ jobs:
           else
             # Convert Markdown to Telegram HTML
             CHANGELOG=$(cat /tmp/cliff_tg.txt | \
+              sed '/^## [0-9][0-9.[:alpha:]-]*$/d' | \
               sed '/^\*\*Full Changelog\*\*/d' | \
+              sed 's/ by \[@[^]]*\](https:\/\/github\.com\/[^)]*)//g' | \
+              sed 's/ by @[A-Za-z0-9_-]\+//g' | \
               sed 's/\[#\([0-9]*\)\]([^)]*)/#\1/g' | \
               sed 's/\[@\([^]]*\)\]([^)]*)/@\1/g' | \
               sed 's/&/\&amp;/g' | \

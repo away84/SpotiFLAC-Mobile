@@ -334,6 +334,12 @@ class _ProviderItem extends StatelessWidget {
         );
       case 'qobuz':
         return _ProviderInfo(name: 'Qobuz', icon: Icons.album, isBuiltIn: true);
+      case 'deezer':
+        return _ProviderInfo(
+          name: 'Deezer',
+          icon: Icons.graphic_eq,
+          isBuiltIn: true,
+        );
       case 'youtube':
         return _ProviderInfo(
           name: 'YouTube',
