@@ -1066,6 +1066,12 @@ abstract class AppLocalizations {
   /// **'Import'**
   String get dialogImport;
 
+  /// Confirm button in Download All dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get dialogDownload;
+
   /// Dialog button - discard changes
   ///
   /// In en, this message translates to:
@@ -4434,7 +4440,7 @@ abstract class AppLocalizations {
   /// **'Added {count} tracks to Loved'**
   String snackbarAddedTracksToLoved(int count);
 
-  /// Title of the Download All confirmation dialog
+  /// Dialog title for bulk download confirmation
   ///
   /// In en, this message translates to:
   /// **'Download All'**
@@ -4445,12 +4451,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Download {count} tracks?'**
   String dialogDownloadAllMessage(int count);
-
-  /// Confirm button in Download All dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Download'**
-  String get dialogDownload;
 
   /// Checkbox label in import dialog to skip already-downloaded songs
   ///
@@ -4817,6 +4817,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Refresh'**
   String get cacheRefresh;
+
+  /// Dialog message for bulk playlist download confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'Download {trackCount} {trackCount, plural, =1{track} other{tracks}} from {playlistCount} {playlistCount, plural, =1{playlist} other{playlists}}?'**
+  String dialogDownloadPlaylistsMessage(int trackCount, int playlistCount);
+
+  /// Button label for bulk downloading selected playlists
+  ///
+  /// In en, this message translates to:
+  /// **'Download {count} {count, plural, =1{playlist} other{playlists}}'**
+  String bulkDownloadPlaylistsButton(int count);
+
+  /// Button label when no playlists are selected for download
+  ///
+  /// In en, this message translates to:
+  /// **'Select playlists to download'**
+  String get bulkDownloadSelectPlaylists;
+
+  /// Snackbar when selected playlists contain no tracks
+  ///
+  /// In en, this message translates to:
+  /// **'Selected playlists have no tracks'**
+  String get snackbarSelectedPlaylistsEmpty;
+
+  /// Playlist count display
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 playlist} other{{count} playlists}}'**
+  String playlistsCount(int count);
 }
 
 class _AppLocalizationsDelegate

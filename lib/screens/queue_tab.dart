@@ -1326,7 +1326,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
 
     if (totalTracks == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Selected playlists have no tracks')),
+        SnackBar(content: Text(context.l10n.snackbarSelectedPlaylistsEmpty)),
       );
       return;
     }
@@ -1334,11 +1334,9 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Download All'),
+        title: Text(ctx.l10n.dialogDownloadAllTitle),
         content: Text(
-          'Download $totalTracks ${totalTracks == 1 ? 'track' : 'tracks'} '
-          'from ${selectedPlaylists.length} '
-          '${selectedPlaylists.length == 1 ? 'playlist' : 'playlists'}?',
+          ctx.l10n.dialogDownloadPlaylistsMessage(totalTracks, selectedPlaylists.length),
         ),
         actions: [
           TextButton(
@@ -1347,7 +1345,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Download'),
+            child: Text(ctx.l10n.dialogDownload),
           ),
         ],
       ),
@@ -1374,8 +1372,8 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     if (settings.askQualityBeforeDownload) {
       DownloadServicePicker.show(
         context,
-        trackName: '$totalTracks tracks',
-        artistName: '${selectedPlaylists.length} playlists',
+        trackName: context.l10n.tracksCount(totalTracks),
+        artistName: context.l10n.playlistsCount(selectedPlaylists.length),
         onSelect: (quality, service) {
           enqueueAll(qualityOverride: quality, service: service);
           if (!mounted) return;
@@ -1549,8 +1547,8 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                   icon: const Icon(Icons.download_rounded),
                   label: Text(
                     selectedCount > 0
-                        ? 'Download $selectedCount ${selectedCount == 1 ? 'playlist' : 'playlists'}'
-                        : 'Select playlists to download',
+                        ? context.l10n.bulkDownloadPlaylistsButton(selectedCount)
+                        : context.l10n.bulkDownloadSelectPlaylists,
                   ),
                   style: FilledButton.styleFrom(
                     backgroundColor: selectedCount > 0

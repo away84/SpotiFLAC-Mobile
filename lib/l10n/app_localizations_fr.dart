@@ -528,6 +528,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dialogImport => 'Import';
 
   @override
+  String get dialogDownload => 'Download';
+
+  @override
   String get dialogDiscard => 'Discard';
 
   @override
@@ -2555,9 +2558,6 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get dialogDownload => 'Download';
-
-  @override
   String get homeSkipAlreadyDownloaded => 'Skip already downloaded songs';
 
   @override
@@ -2764,4 +2764,50 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get cacheRefresh => 'Refresh';
+
+  @override
+  String dialogDownloadPlaylistsMessage(int trackCount, int playlistCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      trackCount,
+      locale: localeName,
+      other: 'tracks',
+      one: 'track',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      playlistCount,
+      locale: localeName,
+      other: 'playlists',
+      one: 'playlist',
+    );
+    return 'Download $trackCount $_temp0 from $playlistCount $_temp1?';
+  }
+
+  @override
+  String bulkDownloadPlaylistsButton(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'playlists',
+      one: 'playlist',
+    );
+    return 'Download $count $_temp0';
+  }
+
+  @override
+  String get bulkDownloadSelectPlaylists => 'Select playlists to download';
+
+  @override
+  String get snackbarSelectedPlaylistsEmpty =>
+      'Selected playlists have no tracks';
+
+  @override
+  String playlistsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count playlists',
+      one: '1 playlist',
+    );
+    return '$_temp0';
+  }
 }
